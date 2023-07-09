@@ -55,8 +55,10 @@
 
 </script>
 
-<h1>Random Signal: {signal}</h1>
-<h2>Time of last signal: {`${tt.getHours()}:${tt.getMinutes()}:${tt.getSeconds()}.${tt.getMilliseconds().toFixed(0)}`}</h2>
+<div id="signal">
+    <h1>Random Signal: {signal}</h1>
+    <h2>Time of last signal: {`${tt.getHours()}:${tt.getMinutes()}:${tt.getSeconds()}.${tt.getMilliseconds().toFixed(0)}`}</h2>
+</div>
 
 <svg width={width} height={height}>
     {#each arr.slice(0, -1) as s, idx}
