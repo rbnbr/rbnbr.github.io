@@ -51,13 +51,33 @@
         return y - signal;
     }
 
+    function addZero(v) {
+        v = v.toFixed();
+        if (v.length < 2) {
+            return "0" + v;
+        }
+
+        return v;
+    }
+
+    function addZeros(v) {
+        v = v.toFixed();
+        if (v.length < 2) {
+            return "00" + v;
+        } else if (v.length < 3) {
+            return "0" + v;
+        }
+
+        return v;
+    }
+
     $: tt = new Date(t);
 
 </script>
 
 <div id="signal">
     <h1>Random Signal: {signal}</h1>
-    <h2>Time of last signal: {`${tt.getHours()}:${tt.getMinutes()}:${tt.getSeconds()}.${tt.getMilliseconds().toFixed(0)}`}</h2>
+    <h2>Time of last signal: {`${addZero(tt.getHours())}:${addZero(tt.getMinutes())}:${addZero(tt.getSeconds())}.${addZeros(tt.getMilliseconds())}`}</h2>
 </div>
 
 <svg width={width} height={height}>
