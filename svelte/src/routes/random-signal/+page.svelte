@@ -18,12 +18,12 @@
         let p = Math.random();
 
         if (p < 0.05) {
-            signal += 1;
+            signal += Math.round(Math.random() * 10);
             // arr.push(signal);
         }
 
         if (p > 0.95) {
-            signal -= 1;
+            signal -= Math.round(Math.random() * 10);
             // arr.push(signal);
         }
     }, 100);
@@ -49,8 +49,12 @@
 <h1>Random Signal: {signal}</h1>
 
 <svg width={width} height={height}>
+    {#each arr.slice(0, -1) as s, idx}
+        <line x1={xScale(idx)} x2={xScale(idx+1)} y1={yScale(ct(s))} y2={yScale(ct(arr[idx+1]))} stroke="blue"></line>
+    {/each}
+    
     {#each arr as s, idx}
-        <circle cx={xScale(idx)} cy={yScale(ct(s))} fill="blue" r=3></circle>
+        <circle cx={xScale(idx)} cy={yScale(ct(s))} fill="blue" r=2></circle>
     {/each}
 </svg>
 
