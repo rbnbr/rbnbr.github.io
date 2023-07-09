@@ -1,7 +1,7 @@
 <script>
     import * as d3 from "d3";
 
-    let signal = 100;
+    let signal = 120;
 
     let arr = [];
 
@@ -11,8 +11,10 @@
         arr.push(signal);
     }
 
-    let width = 500;
-    let height = 350;
+    let width = 1200;
+    let height = 450;
+
+    let t = Date.now();
 
     setInterval(() => {
         let p = Math.random();
@@ -26,6 +28,11 @@
             signal -= Math.round(Math.random() * 10);
             // arr.push(signal);
         }
+
+        if (signal !== arr[arr.length-1]) {
+            arr[arr.length-1] = signal;
+            t = Date.now();
+        }
     }, 100);
 
     setInterval(() => {
@@ -37,22 +44,25 @@
     }, 1000);
 
     let xScale = d3.scaleLinear().domain([0, maxLength]).range([0, width]);
-    let yScale = d3.scaleLinear().domain([-100, 100]).range([height, 0]);
+    let yScale = d3.scaleLinear().domain([-300, 300]).range([height, 0]);
 
     function ct(y) {
         debugger;
         return y - signal;
     }
 
+    $: tt = new Date(t);
+
 </script>
 
 <h1>Random Signal: {signal}</h1>
+<h2>Time of last signal: {`${tt.getHours()}:${tt.getMinutes()}:${tt.getSeconds()}.${tt.getMilliseconds().toFixed(0)}`}</h2>
 
 <svg width={width} height={height}>
     {#each arr.slice(0, -1) as s, idx}
         <line x1={xScale(idx)} x2={xScale(idx+1)} y1={yScale(ct(s))} y2={yScale(ct(arr[idx+1]))} stroke="blue"></line>
     {/each}
-    
+
     {#each arr as s, idx}
         <circle cx={xScale(idx)} cy={yScale(ct(s))} fill="blue" r=2></circle>
     {/each}
