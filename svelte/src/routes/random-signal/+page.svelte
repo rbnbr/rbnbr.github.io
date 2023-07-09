@@ -47,7 +47,6 @@
     let yScale = d3.scaleLinear().domain([-300, 300]).range([height, 0]);
 
     function ct(y) {
-        debugger;
         return y - signal;
     }
 
